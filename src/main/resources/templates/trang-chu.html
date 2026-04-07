@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link th:href="@{/css/trang-chu.css}" rel="stylesheet">
+</head>
+<body>
+<header class="container-fluid">
+<div>
+    <section class="d-flex  justify-content-between backgound-color">
+        <div class="d-flex gap-1" >
+            <div><i class="bi bi-telephone"></i></div>
+            <div>0964250706</div>
+        </div>
+
+        <div class="d-flex gap-3">
+            <div class="d-flex gap-1">
+                <div>
+                    <i class="bi bi-person-circle"></i>
+                </div>
+                <div>
+                    Đăng nhập
+                </div>
+            </div>
+
+            <div class="d-flex gap-1">
+                <div>
+                    <i class="bi bi-bag-heart"></i>
+                </div>
+                <div>
+                    Giỏ hàng
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+    <section class="d-flex justify-content-between align-items-center py-3">
+        <div>
+            <img th:src="@{/images/logo/logo.jpg}" alt="logo" style="width: 100px;">
+        </div>
+
+<ul class="nav">
+    <li class="nav-item"><a class="nav-link text-dark fw-bold" href="#">Tang chủ</a></li>
+
+    <li class="nav-item"><a class="nav-link text-dark fw-bold" href="#">Áo phông</a></li>
+
+    <li class="nav-item"><a class="nav-link text-dark fw-bold" href="#">Áo sơ mi</a></li>
+
+    <li class="nav-item"><a class="nav-link text-dark fw-bold" href="#">Áo sơ mi dài tay</a></li>
+
+    <li class="nav-item"><a class="nav-link text-dark fw-bold" href="#">Áo tank top</a></li>
+
+</ul>
+
+        <div class="d-flex align-items-center border-bottom">
+            <input type="text" placeholder="Tìm kiếm..." class="border-0" style="outline: none;">
+            <i class="bi bi-search"></i>
+        </div>
+    </section>
+</header>
+
+<section>
+    <img th:src="@{/images/banner/banner1.jpg}" style="width: 100%;height: 1000px">
+</section>
+
+<main class="container-fluid px-5 mt-5">
+    <div class="row">
+        <div class="col-md-3" th:each="p: ${products}">
+            <div class="product-card">
+                <div class="product-image">
+                    <img th:src="@{|/images/ao_phong/${p.image}|}" alt="image" class="img-fluid">
+
+                    <div class="product-overlay">
+                        <button class="btn-action"><i class="bi bi-cart"></i> Thêm vào giỏ hàng</button>
+
+                        <a th:href="@{|/product/detail/${p.id}|}" class="btn-action text-decoration-none"> <i class="bi bi-eye"></i> Xem chi tiết</a>
+                    </div>
+                </div>
+
+                <div class="text-center pt-3">
+                    <p class="product-name mb-1" th:text="${p.name}">Tên sản phẩm</p>
+
+                    <p class="product-price fw-bold" th:text="${#numbers.formatDecimal(p.price,0,'COMMA', 0, 'POINT')}+ '₫'">00,000₫</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="container-fluid text-center text-bold backgound-color pt-2" style="height: 50px">
+    <h5>@Shop Atino</h5>
+</footer>
+</body>
+</html>
