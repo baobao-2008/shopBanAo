@@ -20,13 +20,23 @@ public class SecurityConfig {
         http.csrf(csrf-> csrf.disable())// tạm tời tắt scurity
         .authorizeHttpRequests(auth->auth//Thieets lập các quy tắc
                 .requestMatchers("/home/**","/css/**","/images/**","/auth/login").permitAll() // cho phép các trang này không cần kiểm tra qua lơp bảo mật để đăng nhập
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/admin/**","/adminac/**").hasRole("ADMIN")
                 .anyRequest().authenticated()// Để thực hiện mua hàng hay thanh toán cần phải đăng nhập
         )
                 .formLogin(login->login
                         .loginPage("/auth/login")//Đường dẫn trang login
                         .loginProcessingUrl("/auth/login-process")// url xư lý khi nhân nút đăng nhập
-                        .defaultSuccessUrl("/home/index",true)// Thành công
+                        .successHandler((request, response, authentication) -> {
+                            // kiểm tra quyền của người  vừa đăng nhập
+                            var authorities = authentication.getAuthorities();
+                            for(var auth: authorities) {
+                                if(auth.getAuthority().equals("ROLE_ADMIN")) {
+                                    response.sendRedirect("/admin/index");
+                                    return;
+                                }
+                            }
+                            response.sendRedirect("/home/index");
+                        })
                         .failureUrl("/auth/login?error=true")// Thât bại
                         .permitAll()
                 )
