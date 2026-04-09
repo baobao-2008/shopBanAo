@@ -26,7 +26,6 @@ public class Products {
     @Column(name="Image")
     private String image;
 
-
     @Column(name ="Price")
     private Float price;
 
@@ -35,9 +34,6 @@ private LocalDate createDate;
 
     @Column(name="Available")
     private Boolean available;
-
-//    @Column(name="CategoryId")
-//    private String categoryId;
 
     @Column(name="Quantity")
     private Integer quantity;

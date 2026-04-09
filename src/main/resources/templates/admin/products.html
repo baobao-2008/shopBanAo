@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/sidebar}">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Trang chủ</title>
@@ -11,11 +9,11 @@
     <title>Quản lý sản phẩm</title>
 </head>
 <body>
-<section layout:fragment="content">
+<section th:fragment="content">
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3>Danh sách tài khoản</h3>
+    <h3>Danh sách sản phẩm</h3>
     <button class="btn btn-dark btn-sm px-3">
-        <i class="bi bi-person-plus-fill me-2"></i>Thêm sản pẩm
+        <i class="bi bi-person-plus-fill me-2"></i>Thêm sản phẩm
     </button>
 </div>
 
@@ -24,22 +22,26 @@
         <table class="table table-hover mb-0">
             <thead class="table-dark">
             <tr>
-                <th class="py-3 ps-4">UserName</th>
-                <th class="py-3 ps-4">Password</th>
-                <th class="py-3 ps-4">Họ và tên</th>
-                <th class="py-3 ps-4">Email</th>
-                <th class="py-3 ps-4">Vai trò</th>
+                <th class="py-3 ps-4">Id</th>
+                <th class="py-3 ps-4">Name</th>
+                <th class="py-3 ps-4">Image</th>
+                <th class="py-3 ps-4">Price</th>
+                <th class="py-3 ps-4">Create date</th>
+                <th class="py-3 ps-4">Available</th>
+                <th class="py-3 ps-4">Quantity</th>
                 <th class="py-3 ps-4">Thao tác</th>
             </tr>
             </thead>
 
             <tbody>
-            <tr th:each="acc: ${accounts}">
-                <td class="ps-4 fw-bold" th:text="${acc.getUsername()}"></td>
-                <td class="ps-4 fw-bold" th:text="${acc.getPassword()}"></td>
-                <td class="ps-4 fw-bold" th:text="${acc.getFullname()}"></td>
-                <td class="ps-4 fw-bold" th:text="${acc.getEmail()}"></td>
-                <td class="ps-4 fw-bold" th:text="${acc.getAdmin()}"></td>
+            <tr th:each="p: ${products}">
+                <td class="ps-4 fw-bold" th:text="${p.getId}"></td>
+                <td class="ps-4 fw-bold" th:text="${p.getName}"></td>
+                <td class="ps-4 fw-bold" th:text="${p.getImage}"></td>
+                <td class="ps-4 fw-bold" th:text="${p.getPrice}"></td>
+                <td class="ps-4 fw-bold" th:text="${p.getCreateDate()}"></td>
+                <td class="ps-4 fw-bold" th:text="${p.available} ? 'Còn hàng' : 'Hết hàng'"></td>
+                <td class="ps-4 fw-bold" th:text="${p.getQuantity}"></td>
                 <td class="text-center">
                     <a href="#" class="btn btn-outline-primary btn-sm border-0">
                         <i class="bi bi-pencil-square"></i>
