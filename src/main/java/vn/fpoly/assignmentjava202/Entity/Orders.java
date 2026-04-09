@@ -18,7 +18,7 @@ import java.util.List;
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // Dùng Long vì Database là BIGINT
+    private Long id;
 
     @Column(name="CreateDate")
     private LocalDate createDate = LocalDate.now();

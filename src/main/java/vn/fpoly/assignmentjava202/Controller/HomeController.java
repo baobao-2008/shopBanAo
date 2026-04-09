@@ -18,7 +18,7 @@ public class HomeController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        List<Products> products = productService.findAll();
+        List<Products> products = productService.getAllProducts();
         model.addAttribute("products", products);
         return "trang-chu";
     }

@@ -6,17 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vn.fpoly.assignmentjava202.DAO.ProductDAO;
+import vn.fpoly.assignmentjava202.Service.ProductService;
 
 @Controller
 @RequestMapping("/admin")
 public class ProductController {
 
     @Autowired
-    ProductDAO productDAO;
+    ProductService productService;
 
     @GetMapping("/products")
     public String products(Model model) {
-        model.addAttribute("prouducts",productDAO.findAll());
+        model.addAttribute("prouducts",productService.getAllProducts());
         model.addAttribute("page","/admin/products");
         return "admin/products";
     }

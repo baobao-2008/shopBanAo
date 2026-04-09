@@ -13,7 +13,7 @@ public class ProductServiceImpl implements ProductService {
     ProductDAO productDAO;
 
     @Override
-    public List<Products> findAll() {
+    public List<Products> getAllProducts() {
         return productDAO.findAll();
     }
 
