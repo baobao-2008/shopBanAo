@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -20,7 +19,7 @@
       <a th:href="@{/admin/products}" class="list-group-item list-group-item-action bg-dark text-white border-0">
         Quản lý sản phẩm
       </a>
-      <a th:href="@{/adminac/accounts}" class="list-group-item list-group-item-action bg-dark text-white border-0">
+      <a th:href="@{/admin/accounts}" class="list-group-item list-group-item-action bg-dark text-white border-0">
         Quản lý tài khoản
       </a>
       <a th:href="@{/auth/logout}" class="list-group-item list-group-item-action bg-dark text-danger border-0 py-3 mt-5">
@@ -34,7 +33,7 @@
       Hệ thống quản trị
     </div>
     <div class="p-4">
-      <div layout:fragment="content"></div>
+      <div th:insert="~{__${page}__ :: content}"></div>
     </div>
 </div>
 </div>

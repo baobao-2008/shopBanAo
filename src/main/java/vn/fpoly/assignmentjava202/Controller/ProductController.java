@@ -5,18 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import vn.fpoly.assignmentjava202.DAO.OrderDAO;
+import vn.fpoly.assignmentjava202.DAO.ProductDAO;
 
 @Controller
 @RequestMapping("/admin")
-public class Ordercontroller {
-    @Autowired
-    OrderDAO orderDAO;
+public class ProductController {
 
-    @GetMapping("/orders")
-    public String orders(Model model) {
-        model.addAttribute("orders", orderDAO.findAll());
-        model.addAttribute("page", "admin/orders");
-        return "/admin/sidebar";
+    @Autowired
+    ProductDAO productDAO;
+
+    @GetMapping("/products")
+    public String products(Model model) {
+        model.addAttribute("prouducts",productDAO.findAll());
+        model.addAttribute("page","/admin/products");
+        return "admin/products";
     }
+
 }
