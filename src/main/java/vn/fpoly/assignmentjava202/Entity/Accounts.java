@@ -34,6 +34,9 @@ public class Accounts {
     @Column(name="Activated")
     private Boolean activated;
 
+    @Column(name="Token")
+    private String token;
+
     @Column(name="Admin")
     private Boolean admin;
 
