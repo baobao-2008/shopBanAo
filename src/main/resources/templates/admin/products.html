@@ -33,11 +33,13 @@
             </tr>
             </thead>
 
-            <tbody>
+            <tbody class="text-center">
             <tr th:each="p: ${products}">
                 <td class="ps-4 fw-bold" th:text="${p.getId}"></td>
                 <td class="ps-4 fw-bold" th:text="${p.getName}"></td>
-                <td class="ps-4 fw-bold" th:text="${p.getImage}"></td>
+                <td class="ps-4">
+                    <img th:src="@{|/images/ao_phong/${p.getImage}|}" alt="image" style="width: 100px; height: 80px;object-fit: cover" class="rounded shadow-sm">
+                </td>
                 <td class="ps-4 fw-bold" th:text="${p.getPrice}"></td>
                 <td class="ps-4 fw-bold" th:text="${p.getCreateDate()}"></td>
                 <td class="ps-4 fw-bold" th:text="${p.available} ? 'Còn hàng' : 'Hết hàng'"></td>
