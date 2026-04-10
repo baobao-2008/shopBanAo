@@ -1,6 +1,7 @@
 package vn.fpoly.assignmentjava202.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -84,6 +85,100 @@ public class AuthController {
     @GetMapping("/forgot-password")
     public String forgotPassword() {
         return "forgot-password";
+    }
+
+    @PostMapping("/forgot-password")
+    public String fogotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
+
+        Accounts user = accountDAO.findById(email).orElse(null);
+
+        String token = UUID.randomUUID().toString();
+        user.setToken(token);
+        accountDAO.save(user);
+
+        String resetLink = "http://localhost:8080/auth/reset-password?username=" + user.getUsername()+"&token="+token;
+
+        String subject = "Đặt lại mật khẩu";
+        String body ="Chào " + user.getUsername() + ",\n\n"  + "Nhấn vào link sau để đặt lại mật khẩu:\n"
+                + resetLink + "\n\n"
+                + "Link có hiệu lực trong 15 phút. Nếu bạn không yêu cầu, hãy bỏ qua email này.";
+
+        mailerService.sendMail(email, subject, body);
+
+        redirectAttributes.addFlashAttribute("message","Đã gửi link đặt lại mật khẩu vào email của bạn!");
+        return "redirect:/auth/forgot-password";
+    }
+
+    @GetMapping("/reset-password")
+    public String resetPassword(@RequestParam("username") String username, @RequestParam("token") String token, Model model) {
+        Accounts user = accountDAO.findById(username).orElse(null);
+
+        if (user == null || !token.equals(user.getToken())) {
+            model.addAttribute("error", "Link không hợp lệ hoặc đã hết hạn!");
+            return "login";
+        }
+
+        model.addAttribute("token", token);
+        model.addAttribute("username", username);
+        return "reset-password";
+    }
+
+    @PostMapping("/reset-password")
+    public String resetPassword(@RequestParam("username") String username,
+                                @RequestParam("token") String token,
+                                @RequestParam("password") String password,
+                                @RequestParam("confirmPassword") String confirmPassword,
+                                RedirectAttributes redirectAttributes){
+        Accounts user = accountDAO.findById(username).orElse(null);
+
+        if (user == null || !token.equals(user.getToken())) {
+            redirectAttributes.addFlashAttribute("error", "Link không hợp lệ!");
+            return "redirect:/auth/login";
+        }
+        if(!password.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("error","Mật khẩu xác nhận không khớp");
+            redirectAttributes.addFlashAttribute("username", username);
+            redirectAttributes.addFlashAttribute("token", token);
+            return "redirect:/auth/reset-password?username=" + username + "&token=" + token;
+        }
+
+        user.setPassword(password);
+        user.setToken(null);
+        accountDAO.save(user);
+
+        redirectAttributes.addFlashAttribute("message", "Đặt lại mật khẩu thành công! Hãy đăng nhập");
+        redirectAttributes.addFlashAttribute("message",
+                "Đặt lại mật khẩu thành công! Hãy đăng nhập.");
+        return "redirect:/auth/login";
+
+    }
+
+    @GetMapping("/change-password")
+    public String changePassword() {
+        return "change-password";
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword, Authentication authentication, RedirectAttributes redirectAttributes) {
+
+        String username = authentication.getName();
+        Accounts user = accountDAO.findById(oldPassword).orElse(null);
+
+        if (user == null || !user.getPassword().equals(oldPassword)) {
+            redirectAttributes.addFlashAttribute("error", "Mật khẩu cũ không đúng!");
+            return "redirect:/auth/change-password";
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            redirectAttributes.addFlashAttribute("error", "Mật khẩu xác nhận không khớp!");
+            return "redirect:/auth/change-password";
+        }
+
+        user.setPassword(newPassword);
+        accountDAO.save(user);
+
+        redirectAttributes.addFlashAttribute("message","Đổi mật khẩu thành công");
+        return "redirect:/auth/change-password";
     }
 
 }
