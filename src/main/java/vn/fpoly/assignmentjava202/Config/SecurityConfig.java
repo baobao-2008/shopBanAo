@@ -19,7 +19,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf-> csrf.disable())// tạm tời tắt scurity
         .authorizeHttpRequests(auth->auth//Thieets lập các quy tắc
-                .requestMatchers("/home/**","/css/**","/images/**","/auth/login").permitAll() // cho phép các trang này không cần kiểm tra qua lơp bảo mật để đăng nhập
+                .requestMatchers("/home/**","/css/**","/images/**","/auth/login","/auth/register", "/auth/activate", "/auth/forgot-password/**").permitAll() // cho phép các trang này không cần kiểm tra qua lơp bảo mật để đăng nhập
                 .requestMatchers("/admin/**","/adminac/**").hasRole("ADMIN")
                 .anyRequest().authenticated()// Để thực hiện mua hàng hay thanh toán cần phải đăng nhập
         )

@@ -16,7 +16,7 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Accounts accounts  = accountDAO.findById(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Khng tìm thấy user"));
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy user"));
 
         return User.withUsername(accounts.getUsername())// phiên dịch dữ liệu sang ngôn ngữ scrurity
                 .password(accounts.getPassword())// lây ật khấu từ sql

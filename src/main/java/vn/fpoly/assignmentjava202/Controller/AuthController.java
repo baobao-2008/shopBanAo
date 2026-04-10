@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import vn.fpoly.assignmentjava202.DAO.AccountDAO;
 import vn.fpoly.assignmentjava202.Entity.Accounts;
 import vn.fpoly.assignmentjava202.Service.MailerService;
@@ -28,22 +29,39 @@ public class AuthController {
         return "login";
     }
 
+    @GetMapping("/register")
+    public String register() {
+        return "register";
+    }
+
     @PostMapping("/register")
-public String register(Accounts accounts, Model model) {
+    public String register(Accounts accounts,
+                           Model model,
+                           RedirectAttributes redirectAttributes) {
+
+        if (accountDAO.findById(accounts.getUsername()).isPresent()) {
+            model.addAttribute("message", "Tài khoản này đã được sử dụng!");
+            return "register";
+        }
 
         String token = UUID.randomUUID().toString();
         accounts.setToken(token);
         accounts.setActivated(false);
+        accounts.setAdmin(false);
 
-        String verifyLink = "http://localhost:8080/auth/verify?token=" +accounts.getUsername() + "&Token=" + token;
+        String verifyLink = "http://localhost:8080/auth/activate?username="
+                + accounts.getUsername() + "&token=" + token;
 
-        String subject="Kích hoạt tài khoản Atino";
+        String subject = "Kích hoạt tài khoản Atino";
+        String body = "Chào " + accounts.getUsername() + ",\n\n"
+                + "Vui lòng nhấn vào link sau để kích hoạt tài khoản:\n"
+                + verifyLink;
 
-        String body = "Chào "+ accounts.getUsername() + ",\n\n" + "Vui lòng nhấn vào link sau để kích hoạt tài khoản: \n" +verifyLink;
+        accountDAO.save(accounts);
+        mailerService.sendMail(accounts.getEmail(), subject, body);
 
-        mailerService.sendMail(subject,body, verifyLink);
-
-        model.addAttribute("message", "Đăng ký thành công! Hãy kiểm tra email để kích hoạt. ");
+        redirectAttributes.addFlashAttribute("message",
+                "Đăng ký thành công! Hãy kiểm tra email để kích hoạt.");
 
         return "redirect:/auth/login";
     }
@@ -52,7 +70,7 @@ public String register(Accounts accounts, Model model) {
     public String activate(@RequestParam("username") String username,@RequestParam("token") String token, Model model) {
    Accounts user = accountDAO.findById(username).orElse(null);
 
-   if(user!=null & token.equals(user.getToken())) {
+   if(user!=null && token.equals(user.getToken())) {
        user.setActivated(true);
        user.setToken(null);
        accountDAO.save(user);
@@ -60,6 +78,12 @@ public String register(Accounts accounts, Model model) {
    }else {
        model.addAttribute("message","Link kích hoạt sai hoặc đã hết hạn");
    }
-   return "/auth/login";
+        return "login";
     }
+
+    @GetMapping("/forgot-password")
+    public String forgotPassword() {
+        return "forgot-password";
+    }
+
 }
