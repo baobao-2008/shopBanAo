@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <meta charset="UTF-8">
     <title>Trang chủ</title>
@@ -8,6 +10,7 @@
     <link th:href="@{/css/trang-chu.css}" rel="stylesheet">
 </head>
 <body>
+</script>
 <header class="container-fluid">
 <div>
     <section class="d-flex  justify-content-between backgound-color">
@@ -16,13 +19,20 @@
             <div>0964250706</div>
         </div>
 
-        <div class="d-flex gap-3">
+        <div class="d-flex gap-5">
             <div class="d-flex gap-1">
                 <div>
                     <i class="bi bi-person-circle"></i>
                 </div>
                 <div>
-                    Đăng nhập
+                    <a th:href="@{/auth/login}" sec:authorize="isAnonymous()" class="text-decoration-none"> Đăng nhập</a>
+
+                    <div>
+                        <span sec:authorize="isAuthenticated()" class="d-flex">
+                           <span th:text="${#authentication.name}" class="d-flex align-items-center" ></span>
+                             <a th:href="@{/auth/logout}" class="text-decoration-none ms-2 text-danger"> (thoát)</a>
+                        </span>
+                    </div>
                 </div>
             </div>
 
