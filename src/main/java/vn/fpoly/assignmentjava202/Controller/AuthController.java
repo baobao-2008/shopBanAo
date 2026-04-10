@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import vn.fpoly.assignmentjava202.DAO.AccountDAO;
 import vn.fpoly.assignmentjava202.Entity.Accounts;
 import vn.fpoly.assignmentjava202.Service.MailerService;
 
@@ -15,6 +16,9 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
+
+    @Autowired
+    AccountDAO accountDAO;
 
     @Autowired
     MailerService mailerService;
@@ -46,6 +50,16 @@ public String register(Accounts accounts, Model model) {
 
     @GetMapping("/activate")
     public String activate(@RequestParam("username") String username,@RequestParam("token") String token, Model model) {
+   Accounts user = accountDAO.findById(username).orElse(null);
 
+   if(user!=null & token.equals(user.getToken())) {
+       user.setActivated(true);
+       user.setToken(null);
+       accountDAO.save(user);
+       model.addAttribute("message","Kích hoạt thành công");
+   }else {
+       model.addAttribute("message","Link kích hoạt sai hoặc đã hết hạn");
+   }
+   return "/auth/login";
     }
 }
