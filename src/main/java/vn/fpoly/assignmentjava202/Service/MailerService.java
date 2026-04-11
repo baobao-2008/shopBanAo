@@ -15,7 +15,6 @@ public class MailerService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
-        message.setText(body);
         mailSender.send(message);
     }
 }

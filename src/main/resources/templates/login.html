@@ -25,11 +25,13 @@
     <button type="submit" class="btn btn-dark w-100">Đăng nhập</button>
 
     <div class="text-center">
-       <span>Chưa có tài khoản?</span>
         <a th:href="@{/auth/register}" class="text-decoration-none fw-bold text-dark">Đăng ký ngay</a>
+        <a href="/auth/forgot-password" class="text-decoration-none fw-bold text-dark">Quên mật khẩu?</a>
     </div>
 
-    <div th:if="${message}" class="alert alert-info text-center" th:text="${message}"></div>
+    <div th:if="${message}" class="alert alert-info text-center" th:text="${message}">
+    </div>
+
 </form>
 </body>
 </html>

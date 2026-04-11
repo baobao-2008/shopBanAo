@@ -88,24 +88,32 @@ public class AuthController {
     }
 
     @PostMapping("/forgot-password")
-    public String fogotPassword(@RequestParam("email") String email, RedirectAttributes redirectAttributes) {
+    public String fogotPassword(@RequestParam("email") String email,
+                                RedirectAttributes redirectAttributes) {
 
-        Accounts user = accountDAO.findById(email).orElse(null);
+        Accounts user = accountDAO.findByEmail(email).orElse(null);
+
+        if (user == null) {
+            redirectAttributes.addFlashAttribute("error", "Email không tồn tại trong hệ thống!");
+            return "redirect:/auth/forgot-password";
+        }
 
         String token = UUID.randomUUID().toString();
         user.setToken(token);
         accountDAO.save(user);
 
-        String resetLink = "http://localhost:8080/auth/reset-password?username=" + user.getUsername()+"&token="+token;
+        String resetLink = "http://localhost:8080/auth/reset-password?username="
+                + user.getUsername() + "&token=" + token;
 
         String subject = "Đặt lại mật khẩu";
-        String body ="Chào " + user.getUsername() + ",\n\n"  + "Nhấn vào link sau để đặt lại mật khẩu:\n"
+        String body = "Chào " + user.getUsername() + ",\n\n"
+                + "Nhấn vào link sau để đặt lại mật khẩu:\n"
                 + resetLink + "\n\n"
                 + "Link có hiệu lực trong 15 phút. Nếu bạn không yêu cầu, hãy bỏ qua email này.";
 
         mailerService.sendMail(email, subject, body);
 
-        redirectAttributes.addFlashAttribute("message","Đã gửi link đặt lại mật khẩu vào email của bạn!");
+        redirectAttributes.addFlashAttribute("message", "Đã gửi link đặt lại mật khẩu vào email của bạn!");
         return "redirect:/auth/forgot-password";
     }
 
@@ -147,8 +155,6 @@ public class AuthController {
         accountDAO.save(user);
 
         redirectAttributes.addFlashAttribute("message", "Đặt lại mật khẩu thành công! Hãy đăng nhập");
-        redirectAttributes.addFlashAttribute("message",
-                "Đặt lại mật khẩu thành công! Hãy đăng nhập.");
         return "redirect:/auth/login";
 
     }
@@ -162,7 +168,7 @@ public class AuthController {
     public String changePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         String username = authentication.getName();
-        Accounts user = accountDAO.findById(oldPassword).orElse(null);
+        Accounts user = accountDAO.findById(username).orElse(null);
 
         if (user == null || !user.getPassword().equals(oldPassword)) {
             redirectAttributes.addFlashAttribute("error", "Mật khẩu cũ không đúng!");
