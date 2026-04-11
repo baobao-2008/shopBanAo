@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section th:fragment="content">
+  <h3 class="mb-4 text-center">Sửa sản phẩm</h3>
+
+  <div class="card border-0 shadow-sm p-4 mx-auto" style="max-width: 700px">
+    <form action="/admin/products/edit" method="post" enctype="multipart/form-data">
+
+      <input type="hidden" name="id" th:value="${product.id}">
+
+      <div class="mb-3">
+        <label>Tên sản phẩm</label>
+        <input type="text" name="name" class="form-control"
+               th:value="${product.name}" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Ảnh</label>
+        <div class="mb-2">
+          <img th:src="@{|/images/ao_phong/${product.image}|}"
+               style="width: 100px; height: 80px; object-fit: cover" class="rounded">
+        </div>
+        <input type="file" name="imageFile" class="form-control" accept="image/*">
+        <input type="hidden" name="image" th:value="${product.image}">
+      </div>
+
+      <div class="mb-3">
+        <label>Giá</label>
+        <input type="number" name="price" class="form-control"
+               th:value="${product.price}" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Số lượng</label>
+        <input type="number" name="quantity" class="form-control"
+               th:value="${product.quantity}" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Danh mục</label>
+        <select name="categoryId" class="form-select" required>
+          <option value="">-- Chọn danh mục --</option>
+          <option th:each="c : ${categories}"
+                  th:value="${c.id}"
+                  th:text="${c.name}"
+                  th:selected="${product.category != null and product.category.id == c.id}">
+          </option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label>Trạng thái</label>
+        <select name="available" class="form-select">
+          <option value="true"  th:selected="${product.available == true}">Còn hàng</option>
+          <option value="false" th:selected="${product.available == false}">Hết hàng</option>
+        </select>
+      </div>
+
+      <div class="d-flex gap-2 justify-content-center align-items-cente">
+        <button type="submit" class="btn btn-dark">Cập nhật</button>
+        <a href="/admin/products" class="btn btn-secondary">Hủy</a>
+      </div>
+    </form>
+  </div>
+</section>
+</div>
+</body>
+</html>

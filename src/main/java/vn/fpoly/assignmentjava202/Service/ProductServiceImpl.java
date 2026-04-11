@@ -28,8 +28,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(int id) {
-productDAO.findById(id).orElse(null);
+    public Products updateProduct(int id) {
+ return productDAO.findById(id).orElse(null);
     }
 
 }

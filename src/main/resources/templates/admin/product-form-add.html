@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm sản phẩm</title>
+</head>
+<body>
+<section th:fragment="content">
+    <h3 class="mb-4 text-center">Thêm sản phẩm</h3>
+
+    <div class="card border-0 shadow-sm p-4 mx-auto" style="max-width: 700px">
+        <form action="/admin/products/add" method="post" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label>Tên sản phẩm</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Ảnh</label>
+                <input type="file" name="imageFile" class="form-control" accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label>Giá</label>
+                <input type="number" name="price" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Số lượng</label>
+                <input type="number" name="quantity" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label>Danh mục</label>
+                <select name="categoryId" class="form-select" required>
+                    <option value="">-- Chọn danh mục --</option>
+                    <option th:each="c : ${categories}"
+                            th:value="${c.id}"
+                            th:text="${c.name}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label>Trạng thái</label>
+                <select name="available" class="form-select">
+                    <option value="true">Còn hàng</option>
+                    <option value="false">Hết hàng</option>
+                </select>
+            </div>
+
+            <div class="d-flex gap-2 justify-content-center align-items-center">
+                <button type="submit" class="btn btn-dark">Thêm</button>
+                <a href="/admin/products" class="btn btn-secondary">Hủy</a>
+            </div>
+        </form>
+    </div>
+</section>
+</body>
+</html>
