@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vn.fpoly.assignmentjava202.Service.ProductService;
 
@@ -19,6 +20,12 @@ public class ProductController {
         model.addAttribute("products",productService.getAllProducts());
         model.addAttribute("page","/admin/products");
         return "admin/sidebar";
+    }
+
+    @GetMapping("/products/delete/{id}")
+    public String deleteProduct(@PathVariable int id) {
+        productService.deleteProduct(id);
+        return "redirect:/admin/products";
     }
 
 }

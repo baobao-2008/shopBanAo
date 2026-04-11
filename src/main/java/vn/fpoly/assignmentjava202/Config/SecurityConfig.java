@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()// Để thực hiện mua hàng hay thanh toán cần phải đăng nhập
         )
                 .formLogin(login->login
-                        .loginPage("/auth/login")//Đường dẫn trang login
+                        .loginPage("/auth/login")
                         .loginProcessingUrl("/auth/login-process")// url xư lý khi nhân nút đăng nhập
                         .successHandler((request, response, authentication) -> {
                             // kiểm tra quyền của người  vừa đăng nhập

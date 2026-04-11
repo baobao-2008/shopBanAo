@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import vn.fpoly.assignmentjava202.DAO.AccountDAO;
 import vn.fpoly.assignmentjava202.Service.AccountService;
@@ -20,5 +21,11 @@ public class AccontController {
         model.addAttribute("accounts", accountService.getAllAccounts());
         model.addAttribute("page", "admin/accounts");
         return "admin/sidebar";
+    }
+
+    @GetMapping("/accounts/delete/{id}")
+    public String deleteAccount(@PathVariable String id, Model model) {
+        accountService.deleteAccount(id);
+        return "redirect:/admin/accounts";
     }
 }

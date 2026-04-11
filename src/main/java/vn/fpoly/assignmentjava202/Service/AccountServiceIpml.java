@@ -16,4 +16,9 @@ public class AccountServiceIpml implements AccountService {
     public List<Accounts> getAllAccounts() {
         return accountDAO.findAll();
     }
+
+    @Override
+    public void deleteAccount(String id) {
+        accountDAO.deleteById(id);
+    }
 }

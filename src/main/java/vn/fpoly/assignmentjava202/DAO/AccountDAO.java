@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface AccountDAO extends JpaRepository<Accounts,String> {
     Optional<Accounts> findByEmail(String email);
+
+
 }
