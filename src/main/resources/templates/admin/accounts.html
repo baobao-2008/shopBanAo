@@ -10,9 +10,6 @@
 <div th:fragment="content">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3>Danh sách tài khoản</h3>
-        <button class="btn btn-dark btn-sm px-3">
-            <i class="bi bi-person-plus-fill me-2"></i>Thêm tài khoản
-        </button>
     </div>
     <div class="card border-0 shadow-sm">
         <div class="card-body p-0">
@@ -20,6 +17,7 @@
                 <thead class="table-dark">
                 <tr>
                     <th class="py-3 ps-4">UserName</th>
+                    <th class="py-3 ps-4">Mật khẩu</th>
                     <th class="py-3 ps-4">Họ và tên</th>
                     <th class="py-3 ps-4">Email</th>
                     <th class="py-3 ps-4">Vai trò</th>
@@ -29,11 +27,12 @@
                 <tbody>
                 <tr th:each="acc: ${accounts}">
                     <td class="ps-4 fw-bold" th:text="${acc.username}"></td>
+                    <td class="ps-4 fw-bold" th:text="${acc.password}"></td>
                     <td class="ps-4 fw-bold" th:text="${acc.fullname}"></td>
                     <td class="ps-4 fw-bold" th:text="${acc.email}"></td>
                     <td class="ps-4 fw-bold" th:text="${acc.admin}"></td>
                     <td class="text-center">
-                        <a href="#" class="btn btn-outline-primary btn-sm border-0"><i class="bi bi-pencil-square"></i></a>
+                        <a th:href="@{|/admin/accounts/update/${acc.username}|}" class="btn btn-outline-primary btn-sm border-0"><i class="bi bi-pencil-square"></i></a>
 
                         <a th:href="@{|/admin/accounts/delete/${acc.username}|}" class="btn btn-outline-danger btn-sm border-0 ms-2"><i class="bi bi-trash"></i></a>
                     </td>

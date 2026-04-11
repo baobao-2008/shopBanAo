@@ -9,4 +9,6 @@ public interface AccountService  {
     List<Accounts> getAllAccounts();
 
     public void deleteAccount(String id);
+
+    Accounts updateAccount(String username);
 }

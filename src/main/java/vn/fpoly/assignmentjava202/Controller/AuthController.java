@@ -41,7 +41,12 @@ public class AuthController {
                            RedirectAttributes redirectAttributes) {
 
         if (accountDAO.findById(accounts.getUsername()).isPresent()) {
-            model.addAttribute("message", "Tài khoản này đã được sử dụng!");
+            model.addAttribute("message", "Tên tài khoản này đã được sử dụng!");
+            return "register";
+        }
+
+        if(accountDAO.findByEmail(accounts.getEmail()).isPresent()) {
+            model.addAttribute("message", "Email này đã được sử dụng rồi");
             return "register";
         }
 
