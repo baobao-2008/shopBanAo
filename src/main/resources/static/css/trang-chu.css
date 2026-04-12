@@ -21,8 +21,16 @@ header .backgound-color {
     margin-bottom: 20px;
 }
 
-.product-image{
-    position: relative;
+.product-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .product-overlay{
