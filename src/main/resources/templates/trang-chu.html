@@ -50,7 +50,10 @@
                     <i class="bi bi-bag-heart"></i>
                 </div>
                 <div>
-                    Giỏ hàng
+                    <a th:href="@{/cart}" class="d-flex gap-1 text-decoration-none text-dark">
+                        <i class="bi bi-bag-heart"></i>
+                        <div>Giỏ hàng</div>
+                    </a>
                 </div>
             </div>
     </section>
@@ -93,7 +96,9 @@
                     <img th:src="@{|/images/ao_phong/${p.image}|}" alt="image" class="img-fluid">
 
                     <div class="product-overlay">
-                        <button class="btn-action"><i class="bi bi-cart"></i> Thêm vào giỏ hàng</button>
+                        <a th:href="@{|/cart/add/${p.id}|}" class="btn-action text-decoration-none">
+                            <i class="bi bi-cart"></i> Thêm vào giỏ hàng
+                        </a>
 
                         <a th:href="@{|/product/detail/${p.id}|}" class="btn-action text-decoration-none"> <i class="bi bi-eye"></i> Xem chi tiết</a>
                     </div>
