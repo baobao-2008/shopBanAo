@@ -26,6 +26,12 @@ public class Orders {
     @Column(name="Address")
     private String address;
 
+    @Column(name="Phone")
+    private String phone;
+
+    @Column(name="ReceiverName")
+    private String receiverName;
+
     @ManyToOne
     @JoinColumn(name = "Username")
     private Accounts account;

@@ -17,7 +17,7 @@ public class Ordercontroller {
     @GetMapping("/orders")
     public String orders(Model model) {
         model.addAttribute("orders", orderService.getAllOrders());
-        model.addAttribute("page", "admin/orders");
+        model.addAttribute("page", "admin/order");
         return "/admin/sidebar";
     }
 }

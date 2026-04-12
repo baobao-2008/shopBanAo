@@ -49,7 +49,8 @@ return "checkout";
     }
 
     @PostMapping("/checkout")
-    public String checkout(HttpSession session, Model model, @RequestParam("address") String address,Authentication authentication, RedirectAttributes redirectAttributes) {
+    public String checkout(HttpSession session, Model model, @RequestParam("address") String address,@RequestParam("receiverName") String receiverName,
+                           @RequestParam("phone") String phone, Authentication authentication, RedirectAttributes redirectAttributes) {
 
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 
@@ -63,6 +64,8 @@ return "checkout";
         Orders orders = new Orders();
         orders.setAccount(accounts);
         orders.setAddress(address);
+        orders.setReceiverName(receiverName);
+        orders.setPhone(phone);
         orders.setCreateDate(LocalDate.now());
         orderDAO.save(orders);
 

@@ -23,21 +23,24 @@
                 <th class="py-3 ps-4">Username</th>
                 <th class="py-3 ps-4">Create date</th>
                 <th class="py-3 ps-4">Address</th>
+                <th class="py-3 ps-4">Phone</th>
+                <th class="py-3 ps-4">Receiver name</th>
+                <th class="py-3 ps-4">Action</th>
+
             </tr>
             </thead>
 
             <tbody>
             <tr th:each="o: ${orders}">
                 <td class="ps-4 fw-bold" th:text="${o.getId}"></td>
-                <td class="ps-4 fw-bold" th:text="${o.getUserName}"></td>
+                <td class="ps-4 fw-bold" th:text="${o.account.username}"></td>
                 <td class="ps-4 fw-bold" th:text="${o.getCreateDate}"></td>
-                <td class="ps-4 fw-bold" th:text="${o.getAdress}"></td>
+                <td class="ps-4 fw-bold" th:text="${o.address}"></td>
+                <td class="ps-4 fw-bold" th:text="${o.phone}"></td>
+                <td class="ps-4 fw-bold" th:text="${o.receiverName}"></td>
                 <td class="text-center">
                     <a href="#" class="btn btn-outline-primary btn-sm border-0">
                         <i class="bi bi-pencil-square"></i>
-                    </a>
-                    <a href="#" class="btn btn-outline-danger btn-sm border-0 ms-2">
-                        <i class="bi bi-trash"></i>
                     </a>
                 </td>
             </tr>
