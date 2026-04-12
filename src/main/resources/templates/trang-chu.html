@@ -74,10 +74,12 @@
 
 </ul>
 
-        <div class="d-flex align-items-center border-bottom">
-            <input type="text" placeholder="Tìm kiếm..." class="border-0" style="outline: none;">
-            <i class="bi bi-search"></i>
-        </div>
+        <form th:action="@{/home/search-by-category}" method="get">
+            <div class="d-flex align-items-center border-bottom">
+                <input type="text" name="name" placeholder="Tìm kiếm..." class="border-0" style="outline: none;">
+                <button type="submit" class="btn btn-dark"><i class="bi bi-search"></i></button>
+            </div>
+        </form>
     </section>
 </header>
 

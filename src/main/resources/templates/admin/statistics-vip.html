@@ -23,7 +23,6 @@
         </thead>
         <tbody>
         <tr th:each="v, stat : ${vips}">
-          <!-- Hạng với icon đặc biệt cho top 3 -->
           <td class="ps-4 fw-bold">
             <span th:if="${stat.index == 0}">🥇</span>
             <span th:if="${stat.index == 1}">🥈</span>
