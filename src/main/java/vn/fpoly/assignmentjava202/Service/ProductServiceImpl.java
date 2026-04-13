@@ -32,4 +32,9 @@ public class ProductServiceImpl implements ProductService {
  return productDAO.findById(id).orElse(null);
     }
 
+    @Override
+    public Products getProductById(int id) {
+        return productDAO.findById(id).orElse(null);
+    }
+
 }

@@ -12,4 +12,6 @@ public interface ProductService {
     void addProduct(Products product);
 
     Products updateProduct(int id);
+
+    Products getProductById(int id);
 }

@@ -17,7 +17,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Controller
 @RequestMapping("/admin")
@@ -117,4 +116,5 @@ return "redirect:/admin/products";
         redirectAttributes.addFlashAttribute("message","Bạn sửa sản phẩm thành công");
         return "redirect:/admin/products";
     }
+
 }
