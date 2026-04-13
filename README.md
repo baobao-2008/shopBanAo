@@ -1,4 +1,5 @@
-Atino Shop - Website Bán ÁoHệ thống website bán áo full-stack được xây dựng bằng Spring Boot, tích hợp đầy đủ các tính năng từ quản lý sản phẩm, giỏ hàng, đặt hàng đến xác thực email và phân quyền người dùng.
+Atino Shop - Website Bán Áo
+Hệ thống website bán áo full-stack được xây dựng bằng Spring Boot, tích hợp đầy đủ các tính năng từ quản lý sản phẩm, giỏ hàng, đặt hàng đến xác thực email và phân quyền người dùng.
 
 Đăng ký tài khoản, kích hoạt qua email
 Đăng nhập / Đăng xuất
