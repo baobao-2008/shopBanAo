@@ -14,8 +14,8 @@ public class MailerService {
     public void sendMail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
-        message.setSubject(body);
         message.setSubject(subject);
+        message.setText(body);
         mailSender.send(message);
     }
 }

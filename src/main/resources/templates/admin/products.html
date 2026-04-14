@@ -46,7 +46,7 @@
                 <td class="ps-4 fw-bold" th:text="${p.available} ? 'Còn hàng' : 'Hết hàng'"></td>
                 <td class="ps-4 fw-bold" th:text="${p.getQuantity}"></td>
                 <td class="text-center">
-                    <a th:href="@{|/admin/products/edit/${p.id}|}" class="btn btn-outline-primary btn-sm border-0">
+                    <a th:href="@{|/admin/products/edit/${p.id}|}"  class="btn btn-outline-primary btn-sm border-0">
                         <i class="bi bi-pencil-square"></i>
                     </a>
                     <a th:href="@{|/admin/products/delete/${p.id}|}" class="btn btn-outline-danger btn-sm border-0 ms-2" >

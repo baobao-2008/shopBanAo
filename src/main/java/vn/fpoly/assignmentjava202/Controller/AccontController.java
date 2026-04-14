@@ -60,6 +60,4 @@ public class AccontController {
         return "redirect:/admin/accounts";
     }
 
-
-
 }

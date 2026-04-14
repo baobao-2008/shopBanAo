@@ -77,6 +77,11 @@ return "checkout";
                 orderDetails.setProduct(product);
                 orderDetails.setQuantity(cartItem.getQuantity());
                 orderDetails.setPrice(cartItem.getPrice());
+
+                int quantity = cartItem.getQuantity();
+
+                product.setQuantity(product.getQuantity() - quantity);
+
                 orderDetailsDAO.save(orderDetails);
                 }
             }
@@ -86,7 +91,7 @@ return "checkout";
         return "redirect:/orders";
         }
         @GetMapping("/orders")
-    public String orders(Authentication authentication, Model model) {
+        public String orders(Authentication authentication, Model model) {
         String username = authentication.getName();
         Accounts accounts = accountDAO.findById(username).orElse(null);
         List<Orders> orders = orderDAO.findByAccount(accounts);

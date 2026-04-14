@@ -19,6 +19,9 @@ public class CartController {
     @Autowired
     ProductDAO productDAO;
 
+    @Autowired
+    Products product;
+
     private List<CartItem> getCartItems(HttpSession session) {
 List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 
@@ -50,7 +53,7 @@ return cart;
             return "redirect:/home/index";
         }
 
-List<CartItem> cart = getCartItems(session);
+      List<CartItem> cart = getCartItems(session);
 
         CartItem existingItem = cart.stream()
                 .filter(item -> item.getProductId().equals(productId))

@@ -74,7 +74,7 @@ public class AuthController {
 
     @GetMapping("/activate")
     public String activate(@RequestParam("username") String username,@RequestParam("token") String token, Model model) {
-   Accounts user = accountDAO.findById(username).orElse(null);
+    Accounts user = accountDAO.findById(username).orElse(null);
 
    if(user!=null && token.equals(user.getToken())) {
        user.setActivated(true);
